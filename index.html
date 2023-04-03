@@ -1,0 +1,263 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><title>ArtExplorer</title><script src="https://use.typekit.net/rrw7kic.js"></script><script>try {
+                Typekit.load({ async: true });
+            } catch (e) {}</script><script src="https://unpkg.com/axios/dist/axios.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js" integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script defer="defer" src="bundle.min.js"></script></head><body><div id="app"></div><script defer="defer">window.onload = function () {
+                const clientElement = document.getElementById('app');
+
+                const apiLoginData = Qs.stringify({
+                    grant_type: 'password',
+                    username: 'username1',
+                    password: 'Bingo-111',
+                    client_secret: 'secret_for_randomstate_customer',
+                    usertype: 'Customer',
+                    client_id: 'randomstate_customer',
+                    scope: 'randomstate_customer offline_access',
+                });
+
+                const config = {
+                    method: 'post',
+                    url: 'https://randomstate-customer-api.azurewebsites.net/connect/token',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    data: apiLoginData,
+                };
+                axios(config)
+                    .then((response) => {
+                        // Save tokens, and initialize client with them.
+                        const tokenData = {
+                            access_token: response.data.access_token,
+                            refresh_token: response.data.refresh_token,
+                        };
+                        console.log(response, 'data');
+                        initClient(tokenData);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+                const initClient = (tokenData) => {
+                    ArtExplorer.init(clientElement, {
+                        api_url: 'https://randomstate-customer-api.azurewebsites.net/',
+                        assets_url: 'assets/',
+                        lang: 'en',
+                        currency: 'SEK',
+                        region: 'sv',
+                        tokenData: tokenData,
+                        gameIds: [
+                            {
+                                gameId: 132,
+                                cost: 5,
+                                prizeplan: [
+                                    {
+                                        iconKey: 'Museum_Object_1',
+                                        icon: 'Mona Lisa',
+                                        value: 250000,
+                                        count: 1,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_8',
+                                        icon: 'Bust',
+                                        value: 25000,
+                                        count: 10,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_6',
+                                        icon: 'Cat',
+                                        value: 5000,
+                                        count: 20,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_7',
+                                        icon: 'Faraopergament',
+                                        value: 500,
+                                        count: 150,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_2',
+                                        icon: 'Orange glass sculpture',
+                                        value: 50,
+                                        count: 1000,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_5',
+                                        icon: 'Vase',
+                                        value: 20,
+                                        count: 9000,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_3',
+                                        icon: 'Blue glass sculpture',
+                                        value: 10,
+                                        count: 75000,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_4',
+                                        icon: 'Banana',
+                                        value: 5,
+                                        count: 160000,
+                                    },
+                                ],
+                            },
+                            {
+                                gameId: 131,
+                                cost: 10,
+                                prizeplan: [
+                                    {
+                                        iconKey: 'Museum_Object_1',
+                                        icon: 'Mona Lisa',
+                                        value: 500000,
+                                        count: 1,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_8',
+                                        icon: 'Bust',
+                                        value: 50000,
+                                        count: 10,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_6',
+                                        icon: 'Cat',
+                                        value: 10000,
+                                        count: 20,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_7',
+                                        icon: 'Faraopergament',
+                                        value: 1000,
+                                        count: 150,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_2',
+                                        icon: 'Orange glass sculpture',
+                                        value: 100,
+                                        count: 1000,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_5',
+                                        icon: 'Vase',
+                                        value: 40,
+                                        count: 9000,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_3',
+                                        icon: 'Blue glass sculpture',
+                                        value: 20,
+                                        count: 75000,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_4',
+                                        icon: 'Banana',
+                                        value: 10,
+                                        count: 160000,
+                                    },
+                                ],
+                            },
+                            {
+                                gameId: 124,
+                                cost: 20,
+                                prizeplan: [
+                                    {
+                                        iconKey: 'Museum_Object_1',
+                                        icon: 'Mona Lisa',
+                                        value: 1000000,
+                                        count: 1,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_8',
+                                        icon: 'Bust',
+                                        value: 100000,
+                                        count: 10,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_6',
+                                        icon: 'Cat',
+                                        value: 20000,
+                                        count: 20,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_7',
+                                        icon: 'Faraopergament',
+                                        value: 2000,
+                                        count: 150,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_2',
+                                        icon: 'Orange glass sculpture',
+                                        value: 200,
+                                        count: 1000,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_5',
+                                        icon: 'Vase',
+                                        value: 80,
+                                        count: 9000,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_3',
+                                        icon: 'Blue glass sculpture',
+                                        value: 40,
+                                        count: 75000,
+                                    },
+                                    {
+                                        iconKey: 'Museum_Object_4',
+                                        icon: 'Banana',
+                                        value: 20,
+                                        count: 160000,
+                                    },
+                                ],
+                            },
+                        ],
+                        demoGameId: {
+                            gameId: 3,
+                            cost: 10,
+                            prizeplan: [
+                                {
+                                    iconKey: 'Museum_Object_1',
+                                    icon: 'Mona Lisa',
+                                    value: 500000,
+                                    count: 1,
+                                },
+                                {
+                                    iconKey: 'Museum_Object_8',
+                                    icon: 'Bust',
+                                    value: 50000,
+                                    count: 3,
+                                },
+                                { iconKey: 'Museum_Object_6', icon: 'cat', value: 10000, count: 4 },
+                                {
+                                    iconKey: 'Museum_Object_7',
+                                    icon: 'Faraopergament',
+                                    value: 1000,
+                                    count: 5,
+                                },
+                                {
+                                    iconKey: 'Museum_Object_2',
+                                    icon: 'Orange glass sculpture',
+                                    value: 100,
+                                    count: 5,
+                                },
+                                { iconKey: 'Museum_Object_5', icon: 'Vase', value: 40, count: 6 },
+                                {
+                                    iconKey: 'Museum_Object_3',
+                                    icon: 'Blue glass sculpture',
+                                    value: 20,
+                                    count: 6,
+                                },
+                                { iconKey: 'Museum_Object_4', icon: 'Banana', value: 10, count: 3 },
+                            ],
+                        },
+                        callback_login: function () {
+                            console.log('Toggle login dialog');
+                        },
+                        callback_deposit: function () {
+                            console.log('Open deposit dialog');
+                        },
+                        callback_event: function (eventType, eventData) {
+                            console.log('Event:', eventType, eventData);
+                        },
+                        replayTicket: '...',
+                        // Other features and toggles (in later versions)
+                        // ...
+                    });
+                };
+            };</script></body></html>
